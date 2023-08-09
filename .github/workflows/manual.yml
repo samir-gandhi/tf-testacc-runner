@@ -7,10 +7,11 @@ on:
         required: true
 env:
   SIMPLE_SECRET: ${{ secrets.SIMPLE_SECRET }}
-  SIMPLE_VAR: ${{ vars.SIMPLE_VAR }}}
+  SIMPLE_VAR: ${{ vars.SIMPLE_VAR }}
 
 jobs:
   log-the-inputs:
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     steps:
       - run: |
