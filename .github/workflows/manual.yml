@@ -24,4 +24,4 @@ jobs:
           echo "Simple Secret: $SIMPLE_SECRET"
           echo "Simple Var: $SIMPLE_VAR"
           echo "Input Var: $INPUT_VAR"
-          echo "inputvars: ${{ toJson(inputs.providervars) }}"
+          echo "inputvars: ${{ toJson(inputs.providervars.INPUT_VAR) }}"
