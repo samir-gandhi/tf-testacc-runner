@@ -1,19 +1,7 @@
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true
-      providervars:
-        description: 'Provider variables'
-        type: object
-        required: true
-        default: '{}'
 env:
-  SIMPLE_SECRET: ${{ secrets.SIMPLE_SECRET }}
-  SIMPLE_VAR: ${{ vars.SIMPLE_VAR }}
-  INPUT_VAR: ${{ inputs.providervars.INPUT_VAR }}
+  PROVIDER_VARS: ${{ secrets.PROVIDER_VARS }}
 
 jobs:
   log-the-inputs:
@@ -21,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Simple Secret: $SIMPLE_SECRET"
-          echo "Simple Var: $SIMPLE_VAR"
-          echo "Input Var: $INPUT_VAR"
-          echo "inputvars: ${{ toJson(inputs.providervars.INPUT_VAR) }}"
+          for s in $(echo $PROVIDER_VARS | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
+            export $s
+          done
+          env | sort
+
