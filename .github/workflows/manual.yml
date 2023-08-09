@@ -9,8 +9,6 @@ env:
   SIMPLE_SECRET: ${{ secrets.SIMPLE_SECRET }}
   SIMPLE_VAR: ${{ vars.SIMPLE_VAR }}}
 
-environment: ${{ inputs.environment }}
-
 jobs:
   log-the-inputs:
     runs-on: ubuntu-latest
