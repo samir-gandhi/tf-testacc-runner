@@ -13,6 +13,7 @@ on:
 env:
   SIMPLE_SECRET: ${{ secrets.SIMPLE_SECRET }}
   SIMPLE_VAR: ${{ vars.SIMPLE_VAR }}
+  INPUT_VAR: ${{ inputs.providervars.INPUT_VAR }}
 
 jobs:
   log-the-inputs:
@@ -22,3 +23,4 @@ jobs:
       - run: |
           echo "Simple Secret: $SIMPLE_SECRET"
           echo "Simple Var: $SIMPLE_VAR"
+          echo "Input Var: $INPUT_VAR"
