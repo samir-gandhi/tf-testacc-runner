@@ -27,8 +27,9 @@ jobs:
           echo "Log level: $LEVEL"
           echo "Tags: $TAGS"
           echo "Environment: $ENVIRONMENT"
-          echo "Sipmle Secret: $SIMPLE_SECRET"
+          echo "Simple Secret: $SIMPLE_SECRET"
           echo "Simple Var: $SIMPLE_VAR"
+          echo ${{ secrets.SIMPLE_SECRET }}
         env:
           LEVEL: ${{ inputs.logLevel }}
           TAGS: ${{ inputs.tags }}
