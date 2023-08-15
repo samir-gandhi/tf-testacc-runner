@@ -1,7 +1,7 @@
 # This GitHub action runs your tests for each commit push and/or PR. Optionally
 # you can turn it on using a cron schedule for regular testing.
 #
-name: Nightly Acceptance Tests
+name: Acceptance Tests
 on:
   push:
     branches:
@@ -38,6 +38,7 @@ jobs:
       uses: actions/checkout@v3
       with: 
         name: pingidentity/terraform-provider-davinci
+        ref: refs/heads/release
 
     - name: Set up Go
       uses: actions/setup-go@v4
