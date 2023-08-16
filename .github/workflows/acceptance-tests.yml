@@ -26,6 +26,8 @@ on:
   schedule:
     - cron: '0 9 * * *'
   workflow_dispatch:
+env:
+  PROVIDER_VARS: ${{ secrets.PROVIDER_VARS }}
 jobs:
   # ensure the code builds...
   build:
@@ -85,10 +87,16 @@ jobs:
 
     - name: Get dependencies
       run: |
+        for s in $(echo $PROVIDER_VARS | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
+          export $s
+        done
         go mod download
 
     - name: Sweep to prepare
       run: |
+        for s in $(echo $PROVIDER_VARS | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
+          export $s
+        done
         make sweep
 
   # run acceptance tests in a matrix with Terraform core versions
@@ -137,12 +145,18 @@ jobs:
 
     - name: Get dependencies
       run: |
+        for s in $(echo $PROVIDER_VARS | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
+          export $s
+        done
         go mod download
         go mod tidy
 
     - name: TF acceptance tests
       timeout-minutes: 45
       run: |
+        for s in $(echo $PROVIDER_VARS | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
+          export $s
+        done
         make testacc
 
   cleanup-na:
@@ -177,8 +191,14 @@ jobs:
 
     - name: Get dependencies
       run: |
+        for s in $(echo $PROVIDER_VARS | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
+          export $s
+        done
         go mod download
 
     - name: Sweep to prepare
       run: |
+        for s in $(echo $PROVIDER_VARS | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
+          export $s
+        done
         make sweep
