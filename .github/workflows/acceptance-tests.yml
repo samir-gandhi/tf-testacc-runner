@@ -26,6 +26,11 @@ on:
   schedule:
     - cron: '0 9 * * *'
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
 env:
   PROVIDER_VARS: ${{ secrets.PROVIDER_VARS }}
 jobs:
@@ -59,6 +64,7 @@ jobs:
   prepare-na:
     name: Prepare Pre-prod
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
 
     env:
       PINGONE_USERNAME: ${{ secrets.NA_STAGING_PINGONE_USERNAME }}
@@ -104,6 +110,7 @@ jobs:
     name: Acceptance Test NA (Multi-version)
     needs: [prepare-na, build]
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
 
     env:
       PINGONE_USERNAME: ${{ secrets.NA_STAGING_PINGONE_USERNAME }}
@@ -163,6 +170,7 @@ jobs:
     name: Clean up NA
     needs: test-na
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
 
     env:
       PINGONE_USERNAME: ${{ secrets.NA_STAGING_PINGONE_USERNAME }}
