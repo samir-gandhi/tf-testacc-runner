@@ -12,5 +12,5 @@ jobs:
           for s in $(echo $PROVIDER_VARS | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
             export $s
           done
-          env | sort
+          
 
