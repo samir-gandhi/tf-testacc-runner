@@ -36,8 +36,14 @@ on:
         type: string
         required: false
         default: 'main'
+      tfLogLevel:
+        description: 'Log level to run tests with'
+        type: string
+        required: false
+        default: 'INFO'
 env:
   PROVIDER_VARS: ${{ secrets.PROVIDER_VARS }}
+  TF_LOG_LEVEL: ${{ inputs.logLevel }}
 jobs:
   # ensure the code builds...
   build:
