@@ -78,16 +78,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
 
-    env:
-      PINGONE_USERNAME: ${{ secrets.NA_STAGING_PINGONE_USERNAME }}
-      PINGONE_PASSWORD: ${{ secrets.NA_STAGING_PINGONE_PASSWORD }}
-      PINGONE_CLIENT_ID: ${{ secrets.NA_STAGING_PINGONE_CLIENT_ID }}
-      PINGONE_CLIENT_SECRET: ${{ secrets.NA_STAGING_PINGONE_CLIENT_SECRET }}
-      PINGONE_ENVIRONMENT_ID: ${{ secrets.NA_STAGING_PINGONE_ENVIRONMENT_ID }}
-      PINGONE_REGION: "NorthAmerica"
-      PINGONE_LICENSE_ID: ${{ secrets.NA_STAGING_PINGONE_LICENSE_ID }}
-      PINGONE_TESTING_PROVIDER_VERSION: "test"
-
     timeout-minutes: 5
     steps:
 
@@ -124,16 +114,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
 
-    env:
-      PINGONE_USERNAME: ${{ secrets.NA_STAGING_PINGONE_USERNAME }}
-      PINGONE_PASSWORD: ${{ secrets.NA_STAGING_PINGONE_PASSWORD }}
-      PINGONE_CLIENT_ID: ${{ secrets.NA_STAGING_PINGONE_CLIENT_ID }}
-      PINGONE_CLIENT_SECRET: ${{ secrets.NA_STAGING_PINGONE_CLIENT_SECRET }}
-      PINGONE_ENVIRONMENT_ID: ${{ secrets.NA_STAGING_PINGONE_ENVIRONMENT_ID }}
-      PINGONE_REGION: "NorthAmerica"
-      PINGONE_LICENSE_ID: ${{ secrets.NA_STAGING_PINGONE_LICENSE_ID }}
-      PINGONE_TESTING_PROVIDER_VERSION: "test"
-
     timeout-minutes: 45
     strategy:
       fail-fast: false
@@ -167,6 +147,7 @@ jobs:
         for s in $(echo $PROVIDER_VARS | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
           export $s
         done
+        env | grep TF_LOG
         go mod download
         go mod tidy
 
@@ -183,17 +164,6 @@ jobs:
     needs: test-na
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-
-    env:
-      PINGONE_USERNAME: ${{ secrets.NA_STAGING_PINGONE_USERNAME }}
-      PINGONE_PASSWORD: ${{ secrets.NA_STAGING_PINGONE_PASSWORD }}
-      PINGONE_CLIENT_ID: ${{ secrets.NA_STAGING_PINGONE_CLIENT_ID }}
-      PINGONE_CLIENT_SECRET: ${{ secrets.NA_STAGING_PINGONE_CLIENT_SECRET }}
-      PINGONE_ENVIRONMENT_ID: ${{ secrets.NA_STAGING_PINGONE_ENVIRONMENT_ID }}
-      PINGONE_REGION: "NorthAmerica"
-      PINGONE_LICENSE_ID: ${{ secrets.NA_STAGING_PINGONE_LICENSE_ID }}
-      PINGONE_TESTING_PROVIDER_VERSION: "test"
-
     timeout-minutes: 5
     steps:
 
