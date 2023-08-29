@@ -43,7 +43,7 @@ on:
         default: 'INFO'
 env:
   PROVIDER_VARS: ${{ secrets.PROVIDER_VARS }}
-  TF_LOG_LEVEL: ${{ inputs.logLevel }}
+  TF_LOG_LEVEL: ${{ inputs.tfLogLevel }}
 jobs:
   # ensure the code builds...
   build:
