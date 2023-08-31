@@ -36,7 +36,7 @@ on:
         type: string
         required: false
         default: 'main'
-      tfLogLevel:
+      tfLog:
         description: 'Log level to run tests with'
         type: string
         required: false
